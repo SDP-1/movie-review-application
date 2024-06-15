@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/movies")
-
+@CrossOrigin(origins = "http://localhost:3000") // Allow requests from your React app
 public class MovieController {
 
     @Autowired
