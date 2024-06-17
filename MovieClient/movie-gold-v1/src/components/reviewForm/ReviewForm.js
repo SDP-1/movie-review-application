@@ -1,21 +1,31 @@
-import { useRef } from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
 const ReviewForm = ({ handleSubmit, labelText, defaultValue }) => {
-  const revText = useRef();
+  const [reviewText, setReviewText] = useState(defaultValue);
+
+  const handleChange = (e) => {
+    setReviewText(e.target.value);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    handleSubmit(reviewText);
+    setReviewText(""); // Clear textarea after submit
+  };
 
   return (
-    <Form>
+    <Form onSubmit={handleFormSubmit}>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>{labelText}</Form.Label>
         <Form.Control
-          ref={revText}
           as="textarea"
           rows={3}
-          defaultValue={defaultValue}
+          value={reviewText}
+          onChange={handleChange}
         />
       </Form.Group>
-      <Button variant="outline-info" onClick={(e) => handleSubmit(e, revText.current.value)}>
+      <Button variant="outline-info" type="submit">
         Submit
       </Button>
     </Form>
