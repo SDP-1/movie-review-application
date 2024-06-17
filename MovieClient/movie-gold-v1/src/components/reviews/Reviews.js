@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Alert } from "react-bootstrap"; // Import Alert from react-bootstrap
 import api from "../../api/axiosConfig";
 import ReviewForm from "../reviewForm/ReviewForm";
 
 const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
   const [reviewText, setReviewText] = useState("");
+  const [error, setError] = useState(null); // State for error message
   const params = useParams();
   const movieId = params.movieId;
 
@@ -14,6 +15,11 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
   }, [movieId, getMovieData]);
 
   const addReview = async (reviewText) => {
+    if (!reviewText.trim()) {
+      setError("Please enter a non-empty review.");
+      return;
+    }
+
     try {
       const response = await api.post("/api/v1/reviews", {
         reviewBody: reviewText,
@@ -22,8 +28,11 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
 
       const updatedReviews = [...reviews, { body: reviewText }];
       setReviews(updatedReviews);
+      setReviewText(""); // Clear textarea after successful submit
+      setError(null); // Clear error message if there was one
     } catch (err) {
       console.log(err);
+      setError("Failed to submit review. Please try again later.");
     }
   };
 
@@ -39,6 +48,7 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
           <img src={movie?.poster} alt={movie?.title} />
         </Col>
         <Col>
+          {error && <Alert variant="danger">{error}</Alert>} {/* Display error message if there is one */}
           <ReviewForm
             handleSubmit={addReview}
             labelText="Write a Review?"
