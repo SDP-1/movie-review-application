@@ -9,3 +9,4 @@ import javax.swing.text.View;
 @Repository
 public interface ReviewRepository extends MongoRepository<Review, ObjectId > {
 }
+
