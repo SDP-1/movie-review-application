@@ -7,6 +7,8 @@ import Header from "./components/header/Header";
 import Trailer from "./components/trailer/Trailer";
 import Reviews from "./components/reviews/Reviews";
 
+import "./App.css";
+
 function App() {
   const [movies, setMovies] = useState([]);
   const [movie, setMovie] = useState(null);
