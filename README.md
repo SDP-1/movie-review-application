@@ -53,6 +53,9 @@ To run this project locally, follow these steps:
 5. **Run the backend application**:
    - Once the backend and frontend applications are running, open your web browser and go to 'http://localhost:3000' to access the Movie Review Application.
       
+### Contact
+For any inquiries or issues, please contact Your `sehandevinda1@gmail.com`.
+
 
 ## Sample Screenshots
 
